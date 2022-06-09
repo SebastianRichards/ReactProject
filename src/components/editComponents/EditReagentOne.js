@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-const EditReagentOne = () => {
+const EditReagentOne = ({reagent1, setReagent1}) => {
 
 
     const [changeStyle1, setChangeStyle1] = useState(false);
@@ -14,6 +14,8 @@ const EditReagentOne = () => {
     const [changeStyle8, setChangeStyle8] = useState(false);
     const [changeStyle9, setChangeStyle9] = useState(false);
     const [changeStyle10, setChangeStyle10] = useState(false);
+
+    const elements =["Benzene", "Toluene", "Methylene", "Iron3", "Hydrogen", "Iron2", "Sodium", "Calcium", "Lithium", "Nickel"];
 
     const stateList = [changeStyle1, changeStyle2, changeStyle3, changeStyle4, changeStyle5, changeStyle6, changeStyle7, changeStyle8, changeStyle9, changeStyle10];
 
@@ -90,6 +92,14 @@ const EditReagentOne = () => {
         (changeStyle10 ? setChangeStyle10(false) : setChangeStyle10(true));  
     }
 
+    const submitHandler = () => {
+        for(let i = 0; i < stateList.length; i++) {
+            if(stateList[i] === true) {
+                setReagent1(elements[i]);
+            }       
+        }
+    }
+
     return (
         <div>
             <ul className='editElectrodeBox'>
@@ -104,7 +114,7 @@ const EditReagentOne = () => {
                 <li className={changeStyle9 ? 'electrodeBoxItem selected' : 'electrodeBoxItem'} onClick={changeLiStyle9} id='9'>Lithium</li>
                 <li className={changeStyle10 ? 'electrodeBoxItem selected' : 'electrodeBoxItem'} onClick={changeLiStyle10} id='10'>Nickel</li>
             </ul>
-            <button className='button-75'>Submit Reagent One</button>     
+            <button className='button-75' onClick={submitHandler}>Submit Reagent One</button>     
         </div>
     )
 }

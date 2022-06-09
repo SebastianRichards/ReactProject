@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const EditElectrodeOne = ({electrode1, setElectrode1}) => {
+const EditElectrodeOne = ({electrode1, setElectrode1, charge, setCharge}) => {
 
 const [changeStyle1, setChangeStyle1] = useState(false);
 const [changeStyle2, setChangeStyle2] = useState(false);
@@ -91,10 +91,23 @@ const changeLiStyle10 = () => {
     (changeStyle10 ? setChangeStyle10(false) : setChangeStyle10(true));  
 }
 
+// changes state for center collumn and uses charge state to use in sup tag for the html presentation
 const submitHandler = () => {
     for(let i = 0; i < stateList.length; i++) {
         if(stateList[i] === true) {
             setElectrode1(elements[i]);
+            if(elements[i] === "Iron3") {
+                setCharge("3+");
+                setElectrode1("Iron");
+                console.log("Pause");
+            } else if (elements[i] === "Iron2"){
+                setCharge("2+");
+                setElectrode1("Iron");
+            
+            } else {
+                setElectrode1(elements[i]);
+                setCharge("");
+            }
         }       
     }
 }

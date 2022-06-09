@@ -65,10 +65,6 @@ function App() {
   }
 
   const signUp = details => {
-    console.log(details);
-    
-    console.log(details.username);
-    console.log(details.password);
     let u = details.username;
     let p = details.password;
     let cp = details.confirmPassword;
