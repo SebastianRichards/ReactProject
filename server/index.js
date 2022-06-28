@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const MicroreactorsModel = require('./models/microreactors');
 
 const cors = require("cors");
+const { response } = require("express");
 
 mongoose.connect("mongodb+srv://sebastian:sebzxp@cluster0.imysk4w.mongodb.net/?retryWrites=true&w=majority");
 
@@ -31,6 +32,12 @@ app.post("/postMicroreactor", async (req, res) => {
     
 
 });
+
+app.delete('/delete/:id', async (req, res) => {
+    const id = req.params.id
+    await MicroreactorsModel.findByIdAndRemove(id).exec();
+    res.send("Item Deleted");
+})
 
 
 

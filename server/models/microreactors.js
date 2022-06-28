@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const MicroreactorSchema = new mongoose.Schema({
+
+    name: {
+        type: Number 
+    },
+
     electrodeOne: {
         type: String
     },
@@ -36,8 +41,37 @@ const MicroreactorSchema = new mongoose.Schema({
 
     electrodeDistance: {
         type: String
-    }
+    },
 
+    vcTemp: [
+        String,
+    ],
+    
+    vcTempTime: [
+        String
+    ],
+
+    vcPressure: [
+        String,
+    ],
+
+    vcPressureTime: [
+        String,
+    ],
+
+    vcFlowRate: [
+        String,
+    ],
+
+    vcFlowRateTime: [
+        String
+    ],
+
+    tubing: [{
+        length: String,
+        diameter: String,
+        loops: String,
+        material: String}],
 
 });
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EditElectrodeOne from './editComponents/EditElectrodeOne';
 import EditElectrodeTwo from './editComponents/EditElectrodeTwo';
 import EditReactionConditions from './editComponents/EditReactionConditions';
@@ -13,9 +13,13 @@ import VariableConCol2 from './VariableConCol2';
 import TubingCol2 from './TubingCol2';
 import ShowSaveError from './editComponents/ShowSaveError';
 import { Link, useNavigate } from 'react-router-dom';
+import Axios from "axios";
+import { AlternateEmail, PhotoSizeSelectActualSharp } from '@material-ui/icons';
 
 
 const Create = () => {
+
+    
 
     //button toggle states
 
@@ -142,6 +146,87 @@ const Create = () => {
 
     const [material, setMaterial] = useState([]);
 
+    let finalStringVcTemp = "";
+    let finalStringVcTempTime = "";
+    let finalStringVcFlowRate = "";
+    let finalStringVcFlowRateTime = "";
+    let finalStringVcPressure = "";
+    let finalStringVcPressureTime;
+    //this is a string that will be constructed to be stored in the database
+    const populateVcTemp = () => {
+        let stringVcTemp = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<temperatureV.length; i++) {
+            stringVcTemp = stringVcTemp.concat(`"${temperatureV[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcTemp = stringVcTemp.slice(0, -2);
+        finalStringVcTemp = "[" + stringVcTemp + "]";
+        return finalStringVcTemp;
+    }
+
+    const populateVcTempTime = () => {
+        let stringVcTempTime = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<temperatureVTime.length; i++) {
+            stringVcTempTime = stringVcTempTime.concat(`"${temperatureVTime[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcTempTime = stringVcTempTime.slice(0, -2);
+        finalStringVcTempTime = "[" + stringVcTempTime + "]";
+        return finalStringVcTempTime;
+    }
+
+    const populateVcPressure = () => {
+        let stringVcPressure = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<pressureV.length; i++) {
+            stringVcPressure = stringVcPressure.concat(`"${pressureV[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcPressure = stringVcPressure.slice(0, -2);
+        finalStringVcPressure = "[" + stringVcPressure + "]";
+        return finalStringVcPressure;
+    }
+
+    const populateVcPressureTime = () => {
+        let stringVcPressureTime = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<pressureVTime.length; i++) {
+            stringVcPressureTime = stringVcPressureTime.concat(`"${pressureVTime[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcPressureTime = stringVcPressureTime.slice(0, -2);
+        finalStringVcPressureTime = "[" + stringVcPressureTime + "]";
+        return finalStringVcPressureTime;
+    }
+
+    const populateVcFlowRate = () => {
+        let stringVcFlowRate = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<flowRateV.length; i++) {
+            stringVcFlowRate = stringVcFlowRate.concat(`"${flowRateV[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcFlowRate = stringVcFlowRate.slice(0, -2);
+        finalStringVcFlowRate = "[" + stringVcFlowRate + "]";
+        return finalStringVcFlowRate;
+    }
+
+    const populateVcFlowRateTime = () => {
+        let stringVcFlowRateTime = ''
+        //concatatinating all the different variable values in a string but in the format of a list
+        for (let i=0; i<flowRateVTime.length; i++) {
+            stringVcFlowRateTime = stringVcFlowRateTime.concat(`"${flowRateVTime[i]}", `);
+        }
+        //removing final space and comma and adding parenthesis
+        stringVcFlowRateTime = stringVcFlowRateTime.slice(0, -2);
+        finalStringVcFlowRateTime = "[" + stringVcFlowRateTime + "]";
+        return finalStringVcFlowRateTime;
+    }
+
+
+
     const microReactor = [electrode1, electrode2, temperature, flowRate, pressure, reagent1, reagent2, electrodeDistance, electrodeArea];
     const microReactorNames = ["Electrode 1", "Electrode 2", "Temperature", "Flow Rate", "Pressure", "Reagent 1", "Reagent 2", "Electrode Distance", "Electrode Height"];
 
@@ -226,26 +311,105 @@ const Create = () => {
 
     }*/
 
-
+    
     const setSaveErrorList = [setSaveErrorE1, setSaveErrorE2, setSaveErrorT, setSaveErrorF, setSaveErrorP, setSaveErrorR1, setSaveErrorR2, setSaveErrorED, setSaveErrorEA];
+
+    //setting a state object that will take an array of all saved microreactors (needed to deduce the id number the next microreactor will be saved as)
+
+
+   
+            
+  
+        //post microreactor data to back end
+
+        
+
+        const [mrCount, setMrCount] = useState(0);
+
+    
+
+        const mrCountChecker = () => {
+            Axios.get("http://localhost:3001/getMicroreactors").then((response) => {
+
+                    let newCount = response.data.length + 1;
+                    setMrCount(newCount);
+        
+                }); 
+
+        }
+
+
+        useEffect(() => {
+            Axios.get("http://localhost:3001/getMicroreactors").then((response) => {
+                setMrCount(response.data.length + 1);
+            });
+        }, []);
+
+        const postMicroreactor = () => {
+            //converting all inputted variable condition values to string ready to be stored in database
+            let finalStringVcTemp = populateVcTemp();
+            let finalStringVcTempTime = populateVcTempTime();
+            let finalStringVcPressure = populateVcPressure();
+            let finalStringVcPressureTime = populateVcPressureTime();
+            let finalStringVcFlowRate = populateVcFlowRate();
+            let finalStringVcFlowRateTime = populateVcFlowRateTime();
+
+            Axios.post("http://localhost:3001/postMicroreactor", {
+                name: mrCount,
+                electrodeOne: electrode1,
+                electrodeTwo: electrode2,
+                temperature: temperature,
+                pressure: pressure,
+                flowRate: flowRate,
+                reagentOne: reagent1,
+                reagentTwo: reagent2,
+                electrodeDistance: electrodeDistance,
+                electrodeArea: electrodeArea,
+                vcTemp: finalStringVcTemp,
+                vcTempTime: finalStringVcTempTime,
+                vcPressure: finalStringVcPressure,
+                vcPressureTime: finalStringVcPressureTime,
+                vcFlowRate: finalStringVcFlowRate,
+                vcFlowRateTime: finalStringVcFlowRateTime
+
+            }).then((response) => {
+                console.log(response);
+               
+            })};
+            
+    
+        
 
     let navigate = useNavigate();
     const save = () => {
+        mrCountChecker();
         for(let i=0; i < microReactor.length; i++) {
             setSaveErrorList[i]("");
             if (microReactor[i] === "") {
                 setSaveErrorList[i]("Please submit: " + microReactorNames[i]);
                 displayShowSaveError();
-            } else {
-                return navigate("/view");
-
+            } 
+        }
+        //this counter will only increase if data is submitted, every iteration has data then the function proceeds
+        let mrcounterverify = 0;
+        for(let i=0; i < microReactor.length; i++) {
+            if (microReactor[i] !== "") {
+                mrcounterverify ++;
             }
+        
+        }
 
+        if (mrcounterverify === 9) {
+
+            postMicroreactor();
+
+            return navigate('/view');
         }
     
     
     }
-    
+
+
 
     
 

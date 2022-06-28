@@ -26,7 +26,7 @@ function App() {
     "sebastian": "password",
     "henry": "hoover",
     "guest": "guest",
-  })
+  });
 
   const [user, setUser] = useState({username: "", password: ""});
   const [error, setError] = useState("");
