@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const VariableConCol2 = ({col2ReactionFunc, temperatureV, temperatureVTime, pressureV, pressureVTime, flowRateV, flowRateVTime}) => {
+
+const VariableConCol2 = ({col2ReactionFunc, temperatureV, temperatureVTime, pressureV, pressureVTime, flowRateV, flowRateVTime, timeT, timeP, timeF}) => {
     const swapScreen = (e) => {
         e.preventDefault();
         col2ReactionFunc();
@@ -15,14 +16,18 @@ const VariableConCol2 = ({col2ReactionFunc, temperatureV, temperatureVTime, pres
         console.log(temperatureV.length);
     }
 
+
+
+
+
     //creating a map of new div jsx objects to be displayed to iterate through the state list
 
     let renderedOutputT = temperatureV.map(item => <div>{item}</div>)
-    let renderedOutputTTime = temperatureVTime.map(item => <div>{item}</div>)
+    let renderedOutputTTime = timeT.map(item => <div>{item}</div>)
     let renderedOutputP = pressureV.map(item => <div>{item}</div>)
-    let renderedOutputPTime = pressureVTime.map(item => <div>{item}</div>)
+    let renderedOutputPTime = timeP.map(item => <div>{item}</div>)
     let renderedOutputF = flowRateV.map(item => <div>{item}</div>)
-    let renderedOutputFTime = flowRateVTime.map(item => <div>{item}</div>)
+    let renderedOutputFTime = timeF.map(item => <div>{item}</div>)
 
 
     return (

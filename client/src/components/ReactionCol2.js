@@ -8,6 +8,8 @@ const ReactionCol2 = ({electrode1, charge, electrode2, charge2, temperature, flo
         col2VariableFunc();
     }
 
+    
+
     const swapScreenT = (e) => {
         e.preventDefault();
         col2TubingFunc();

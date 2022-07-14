@@ -1,7 +1,8 @@
 const express = require("express");
+const dotenv = require('dotenv').config()
 const app = express();
 const mongoose = require("mongoose");
-const MicroreactorsModel = require('./models/microreactors');
+const port = process.env.PORT || 3001
 
 const cors = require("cors");
 const { response } = require("express");
@@ -11,36 +12,12 @@ mongoose.connect("mongodb+srv://sebastian:sebzxp@cluster0.imysk4w.mongodb.net/?r
 app.use(express.json());
 app.use(cors());
 
-app.get("/getMicroreactors", (req, res) => {
-    MicroreactorsModel.find({}, (err, result) => {
-        if(err) {
-            res.json(err);
-        } else {
-            res.json(result);
-        }
-    });
-
-});
-
-app.post("/postMicroreactor", async (req, res) => {
-    const mr = req.body;
-    const newMr = new MicroreactorsModel(mr);
-    await newMr.save();
-
-    res.json(mr);
-    
-    
-
-});
-
-app.delete('/delete/:id', async (req, res) => {
-    const id = req.params.id
-    await MicroreactorsModel.findByIdAndRemove(id).exec();
-    res.send("Item Deleted");
-})
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/microreactors', require('./routes/microReactorRoutes'));
 
 
 
-app.listen(3001, () => {
+
+app.listen(port, () => {
     console.log("server running");
 });

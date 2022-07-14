@@ -138,6 +138,16 @@ const Create = () => {
 
     const [flowRateVTime, setFlowRateVTime] = useState([]);
 
+    //to render out in hours mins secs lets create 3 variables
+    const [timeT, setTimeT] = useState([]);
+
+    const [timeP, setTimeP] = useState([]);
+
+    const [timeF, setTimeF] = useState([]);
+    
+    
+        
+
     const [tubeLength, setTubeLength] = useState([]);
 
     const [tubeDiameter, setTubeDiameter] = useState([]);
@@ -152,6 +162,10 @@ const Create = () => {
     let finalStringVcFlowRateTime = "";
     let finalStringVcPressure = "";
     let finalStringVcPressureTime;
+
+
+    //function to conve
+    
     //this is a string that will be constructed to be stored in the database
     const populateVcTemp = () => {
         let stringVcTemp = ''
@@ -248,12 +262,34 @@ const Create = () => {
 
     const [col2Tubing, setCol2Tubing] = useState(false);
 
+
+    /*
+    const convertTimeT = () => {
+        setTimeT([]);
+        for (let i=0; i<temperatureVTime.length; i++) {
+            //finding a floored value to get number of hours
+            let temporaryIteration = parseInt(temperatureVTime[i])
+            let hours1 = Math.floor(temporaryIteration / 3600);
+            let mins1 = Math.floor((temporaryIteration - (hours1 * 3600))/60);
+            let secs1 = Math.floor(temporaryIteration - (hours1 * 3600) - (mins1 * 60));
+            //setting states to update time values just calculated
+            let finalString = `${hours1}h:${mins1}m:${secs1}s`;
+            setTimeT([...timeT, finalString]);
+            
+           
+        }
+    }
+    */ 
+
     // functions to change col2 screens
 
     const col2VariableFunc = () => {
         setCol2Reaction(false);
         setCol2Tubing(false);
-        setCol2Variable(true);    
+        setCol2Variable(true);
+        
+
+        
     }
 
     const col2ReactionFunc = () => {
@@ -444,7 +480,7 @@ const Create = () => {
             <div className='createCol2'>
                 {(col2Reaction && <ReactionCol2 electrode1={electrode1} charge={charge} electrode2={electrode2} charge2={charge2} temperature={temperature} flowRate={flowRate} pressure={pressure} 
                     reagent1={reagent1} reagent2={reagent2} electrodeDistance={electrodeDistance} electrodeArea={electrodeArea} col2VariableFunc={col2VariableFunc} col2TubingFunc={col2TubingFunc} conditionsSet={conditionsSet} conditionsSetTube={conditionsSetTube}/>)}
-                {(col2Variable && <VariableConCol2 col2ReactionFunc={col2ReactionFunc} temperatureV={temperatureV} temperatureVTime={temperatureVTime} pressureV={pressureV} pressureVTime={pressureVTime} flowRateV={flowRateV} flowRateVTime={flowRateVTime}/>)}
+                {(col2Variable && <VariableConCol2 col2ReactionFunc={col2ReactionFunc} temperatureV={temperatureV} temperatureVTime={temperatureVTime} pressureV={pressureV} pressureVTime={pressureVTime} flowRateV={flowRateV} flowRateVTime={flowRateVTime} timeT={timeT} timeF={timeF} timeP={timeP}/>)}
                 {(col2Tubing && <TubingCol2 col2ReactionFunc={col2ReactionFunc} tubeLength={tubeLength} tubeDiameter={tubeDiameter} loops={loops} material={material}/>)}
      
             </div>
@@ -455,7 +491,7 @@ const Create = () => {
                 {(showEditReagentOne && <EditReagentOne reagent1={reagent1} setReagent1={setReagent1}/>)}
                 {(showEditReagentTwo && <EditReagentTwo reagent2={reagent2} setReagent2={setReagent2}/>)}
                 {(showEditElectrodeDimensions && <EditElectrodeDimensions setElectrodeDistance={setElectrodeDistance} setElectrodeArea={setElectrodeArea}/>)}
-                {(showEditVariableConditions && <EditVariableConditions temperatureV={temperatureV} setTemperatureV={setTemperatureV} temperatureVTime={temperatureVTime} setTemperatureVTime = {setTemperatureVTime} 
+                {(showEditVariableConditions && <EditVariableConditions temperatureV={temperatureV} setTemperatureV={setTemperatureV} temperatureVTime={temperatureVTime} setTemperatureVTime = {setTemperatureVTime} timeT={timeT} setTimeT={setTimeT} timeP={timeP} setTimeP={setTimeP} timeF={timeF} setTimeF={setTimeF}
                 pressureV={pressureV} setPressureV={setPressureV} pressureVTime={pressureVTime} setPressureVTime={setPressureVTime} flowRateV={flowRateV} setFlowRateV={setFlowRateV} flowRateVTime={flowRateVTime} setFlowRateVTime={setFlowRateVTime} conditionsSet={conditionsSet} setConditionsSet={setConditionsSet}/>)}
                 {(showEditAddTubing && <EditTubing conditionsSetTube={conditionsSetTube} setConditionsSetTube={setConditionsSetTube} tubeLength={tubeLength} setTubeLength={setTubeLength} tubeDiameter={tubeDiameter} setTubeDiameter={setTubeDiameter} loops={loops} setLoops={setLoops} material={material} setMaterial={setMaterial}/>)}
                 {(showSaveError && <ShowSaveError saveErrorE1={saveErrorE1} saveErrorE2={saveErrorE2} saveErrorT={saveErrorT} saveErrorF={saveErrorF} saveErrorP={saveErrorP} saveErrorR1={saveErrorR1} saveErrorR2={saveErrorR2} saveErrorED={saveErrorED} saveErrorEA={saveErrorEA}/>)}

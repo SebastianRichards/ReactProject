@@ -526,3 +526,12 @@
 .errorContainer {
   display: grid;
 }
+
+.hoursInputContainer {
+  display: grid;
+  grid-template-columns: 15vh 15vh 15vh;
+  grid-template-rows: 10vh;
+  grid-template-areas: 
+    "hoursInputContainerCol1" "hoursInputContainerCol2" "hoursInputContainerCol3";
+    
+}

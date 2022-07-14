@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const MicroreactorSchema = new mongoose.Schema({
 
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'user'
+    },
+
     name: {
         type: Number 
     },
@@ -75,8 +81,12 @@ const MicroreactorSchema = new mongoose.Schema({
 
 });
 
+
+
 const MicroreactorsModel = mongoose.model("microreactors", MicroreactorSchema);
 
+
 module.exports = MicroreactorsModel;
+
 
 
