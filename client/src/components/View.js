@@ -2,15 +2,18 @@ import React from 'react';
 import { useState, useEffect, useRef} from 'react';
 import Axios from 'axios';
 import { AccordionSummary } from '@material-ui/core';
-import { LocalConvenienceStoreOutlined, SettingsBackupRestoreOutlined } from '@material-ui/icons';
+import { LocalConvenienceStoreOutlined, RepeatOneSharp, SettingsBackupRestoreOutlined } from '@material-ui/icons';
 
 
 const View = () => {
     //how parse works
     let w = '["wow", "wowww"]';
     const a = JSON.parse(w);
-    // list of micro reactors already created shown in the first row
+    // list of micro reactors already created shown in the first row that correlate to session 
     const [mrViewList, setMrViewList] = useState([]);
+
+    // list of all microreactors regardless of username
+    const [mrViewListSelected, setMrViewListSelected] = useState([]);
 
     //state showing time shown in the bottom middle collumn
     //seconds
@@ -254,6 +257,7 @@ const View = () => {
         setCol1FlowRate("");
         setCol1FlowRateTime("");
     }
+
     
     //states that will be used when the run button is clicked to check if time condition has been satisfied to then move from col3 to col1 
     const [runTemp, setRunTemp] = useState([]);
@@ -265,22 +269,43 @@ const View = () => {
 
     useEffect(() => {
         Axios.get("http://localhost:3001/getMicroreactors").then((response) => {
-            setMrViewList(response.data);
-        });
+           
+            let arrayOfMrs = [];
+           
+            for(let i=0; i < response.data.length;i++) {
+                if (response.data[i].user == localStorage.getItem("userUsername")) {
+                    arrayOfMrs.push(response.data[i])
+                }
+            }
 
-        
+            
+            
+            
+            setMrViewList(arrayOfMrs);
+            
+            
+            
+        });
         
         
     }, []);
+    
+   
 
+    
     
 
     const deleteMicroreactor = (id) => {
+   
+
+        
+        
         Axios.delete(`http://localhost:3001/delete/${id}`);
         setMrViewList(mrViewList.filter((val) => {
             return val.id != id;
 
         }))
+        
     }
 
     
@@ -475,7 +500,7 @@ const View = () => {
                                 }>
                                     <div>Microreactor number: {mr.name}</div>
                                     <button>View</button>
-                                    <button>Delete</button>
+                                    <button onClick={() => {deleteMicroreactor(mr._id)}}>Delete</button>
                                 </div>
                             )
                         })}

@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const MicroreactorSchema = new mongoose.Schema({
 
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'user'
+        type: String
     },
 
     name: {
@@ -77,16 +75,10 @@ const MicroreactorSchema = new mongoose.Schema({
         length: String,
         diameter: String,
         loops: String,
-        material: String}],
+        material: String}]
 
 });
 
-
-
 const MicroreactorsModel = mongoose.model("microreactors", MicroreactorSchema);
 
-
 module.exports = MicroreactorsModel;
-
-
-

@@ -263,23 +263,6 @@ const Create = () => {
     const [col2Tubing, setCol2Tubing] = useState(false);
 
 
-    /*
-    const convertTimeT = () => {
-        setTimeT([]);
-        for (let i=0; i<temperatureVTime.length; i++) {
-            //finding a floored value to get number of hours
-            let temporaryIteration = parseInt(temperatureVTime[i])
-            let hours1 = Math.floor(temporaryIteration / 3600);
-            let mins1 = Math.floor((temporaryIteration - (hours1 * 3600))/60);
-            let secs1 = Math.floor(temporaryIteration - (hours1 * 3600) - (mins1 * 60));
-            //setting states to update time values just calculated
-            let finalString = `${hours1}h:${mins1}m:${secs1}s`;
-            setTimeT([...timeT, finalString]);
-            
-           
-        }
-    }
-    */ 
 
     // functions to change col2 screens
 
@@ -389,8 +372,10 @@ const Create = () => {
             let finalStringVcPressureTime = populateVcPressureTime();
             let finalStringVcFlowRate = populateVcFlowRate();
             let finalStringVcFlowRateTime = populateVcFlowRateTime();
+            let userStored = localStorage.getItem("userUsername");
 
             Axios.post("http://localhost:3001/postMicroreactor", {
+                user: userStored,
                 name: mrCount,
                 electrodeOne: electrode1,
                 electrodeTwo: electrode2,
@@ -406,7 +391,9 @@ const Create = () => {
                 vcPressure: finalStringVcPressure,
                 vcPressureTime: finalStringVcPressureTime,
                 vcFlowRate: finalStringVcFlowRate,
-                vcFlowRateTime: finalStringVcFlowRateTime
+                vcFlowRateTime: finalStringVcFlowRateTime,
+                
+
 
             }).then((response) => {
                 console.log(response);

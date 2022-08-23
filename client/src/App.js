@@ -77,7 +77,7 @@ function App() {
         obj[u] = p;
         console.log(obj + "obj");
         setUsers({...users, [u] : p});
-        console.log(users[1] + "ew");
+      
         setSuccessMessage("Account created");
         setError("");
         navigate('/');
