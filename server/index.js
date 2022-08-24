@@ -3,10 +3,62 @@ const app = express();
 const mongoose = require("mongoose");
 const MicroreactorsModel = require('./models/microreactors');
 const fs = require("fs");
+const exec = require("child_process").exec;
+
+
+//run the file
+
+runOpcuaClient = () => {
+    exec('sh ../../sample_client_ts/initiate.sh', (error, stdout, stderr) => {
+        if(error) {
+            console.log(stderr);
+            throw error;
+        }
+        console.log('stdout', stdout)
+    })
+}
+
+runOpcuaClient();
+
+
+
+runOpcuaClient();
+//OPC UA client functions
+
+//read the client file
+readOpcuaClient = () => {
+    fs.readFile('../../sample_client_ts/sample_client.js', 'utf-8', (err, data) => {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log(data);
+    })
+
+}
+
+
+
+
+//write the client file
+writeOpcuaClient = () => {
+    fs.appendFile('../../sample_client_ts/sample_client.js', content, err => {
+        if(err) {
+            console.log(err)
+            return
+        }
+        console.log("opcua client updated")
+        
+    })
+}
+
+
+
 
 
 
 const cors = require("cors");
+const { stdout, stderr } = require("process");
 
 mongoose.connect("mongodb+srv://sebzxp:sebzxp@cluster0.fhlfvdk.mongodb.net/mongodbServer?retryWrites=true&w=majority");
 
@@ -21,6 +73,8 @@ app.get("/getMicroreactors", (req, res) => {
             res.json(result);
         }
     });
+    
+
 
 });
 
