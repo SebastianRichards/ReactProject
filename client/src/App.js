@@ -16,11 +16,8 @@ import { LocalConvenienceStoreOutlined, SettingsInputAntennaTwoTone } from '@mat
 function App() {
 
 
-  /*let users = {
-    "sebastian": "password",
-    "henry": "hoover",
-    "guest": "guest",
-  }*/
+
+
 
   const [users, setUsers] = useState({
     "sebastian": "password",
@@ -59,8 +56,7 @@ function App() {
     }
     if(users[details.username] == null) {
       setError("Username doesn't exist");
-      console.log(users[details.username]);
-      console.log(users);
+      
     }
   }
 
@@ -70,7 +66,7 @@ function App() {
     let cp = details.confirmPassword;
     if (users[details.username] !== undefined) {
       setError("Username taken");
-      console.log(details.username + "wow")
+      
     } else {
       if (p == cp) {
         let obj = {};
@@ -131,8 +127,8 @@ function App() {
   useEffect(() => {
     const u = localStorage.getItem("userUsername");
     const p = localStorage.getItem("userPassword");
-    console.log(u + "is u");
-    console.log(users);
+   
+
     if(u !== null || u !== "") {
       setIsAuth(true);
       setUsers({...users, [u] : p});
@@ -141,7 +137,7 @@ function App() {
         password: p});
       authenticated = true;
     } 
-    console.log(users);
+   
     if(authenticated == false) {
       setIsAuth(false);
     }
@@ -161,14 +157,14 @@ function App() {
       {(successMessage !== "") ? (<div className='successMessage'>{successMessage}</div>) : ""}
       <Routes>  
 
-        <Route path="" element={isAuth ? <Navigate to ="/Home" /> :
+        <Route path="" element={isAuth ? <Navigate to ="/Home"/> :
           <Navigate to ="/Login"/>}/>  
         
           
         <Route path="/*" element={<Layout Logout={Logout} user={user} />} />
         
           
-        <Route path="/Login" element={<Intro Login={Login} guestLogin={guestLogin} signUp={signUp} successNull = {successNull} errorNull={errorNull}/>}/>}
+        <Route path="/Login" element={<Intro Login={Login} guestLogin={guestLogin} signUp={signUp} successNull = {successNull} errorNull={errorNull}/>}/>
           
         
         

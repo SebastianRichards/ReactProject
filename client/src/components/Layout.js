@@ -26,7 +26,7 @@ const Layout = ({Logout, user}) => {
 }
 
   return (
-    <div>
+    <div className='layoutBorder'>
       <div className='layout'>
         <div className='menu-icon'>
           <MenuOutlined className='menu' onClick={showMenu}/>
@@ -37,16 +37,16 @@ const Layout = ({Logout, user}) => {
               <Close className='close' onClick={showMenu}/>
 
             </div>
-            <li>
+            <li className='homeText'>
               <Link to="/home">Home</Link>
             </li>
-            <li>
+            <li className='homeText'>
               <Link to="/create">Create Microreactor</Link>
             </li>
-            <li>
+            <li className='homeText'>
               <Link to={'/view'}>View Microreactors</Link>
             </li>
-            <li>
+            <li className='homeText'>
               <Link to={'/'} onClick={submitHandler}>Sign Out</Link>
             </li>
           </ul>

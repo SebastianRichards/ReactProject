@@ -5,6 +5,35 @@ const MicroreactorsModel = require('./models/microreactors');
 const fs = require("fs");
 const exec = require("child_process").exec;
 
+const cors = require("cors");
+const { stdout, stderr } = require("process");
+const res = require("express/lib/response");
+
+mongoose.connect("mongodb+srv://sebzxp:sebzxp@cluster0.fhlfvdk.mongodb.net/mongodbServer?retryWrites=true&w=majority");
+
+app.use(express.json());
+app.use(cors());
+
+
+
+
+
+
+//test opcua connection
+testOpcuaClient = () => {
+    exec('sh ../../sample_client_ts/initiate.sh', (error, stdout, stderr) => {
+        if(error) {
+            console.log(stderr);
+            
+            throw error;
+        }
+        console.log('stdout', stdout)
+        return true;
+    })
+}
+
+
+
 
 //run the file
 
@@ -18,12 +47,11 @@ runOpcuaClient = () => {
     })
 }
 
-runOpcuaClient();
 
 
 
-runOpcuaClient();
-//OPC UA client functions
+
+
 
 //read the client file
 readOpcuaClient = () => {
@@ -54,16 +82,47 @@ writeOpcuaClient = () => {
 
 
 
+app.get("/readOpcua", (req, res) => {
+    readOpcuaClient();
+    
+
+});
+
+app.get("/runOpcua", (req, res) => {
+    runOpcuaClient();
+
+});
+
+app.get("/writeOpcua", (req, res) => {
+    writeOpcuaClient();
+
+});
+
+
+//maybe try asynch? idk
+app.get("/testOpcua", (req, res) => {
+    
+        
+        exec('sh ../../sample_client_ts/initiate.sh', (error, stdout, stderr) => {
+            if(error) {
+                console.log(stderr);
+                res.send(`Not connected error: ${error}`);
+                throw error;
+            }
+            console.log('stdout', stdout)
+            res.send(`Connection successful.`);
+            return;
+        })
+    
+ 
+    
+
+});
 
 
 
-const cors = require("cors");
-const { stdout, stderr } = require("process");
 
-mongoose.connect("mongodb+srv://sebzxp:sebzxp@cluster0.fhlfvdk.mongodb.net/mongodbServer?retryWrites=true&w=majority");
-
-app.use(express.json());
-app.use(cors());
+ 
 
 app.get("/getMicroreactors", (req, res) => {
     MicroreactorsModel.find({}, (err, result) => {

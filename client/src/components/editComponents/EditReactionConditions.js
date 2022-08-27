@@ -23,18 +23,18 @@ const EditReactionConditions = ({setTemperature, setFlowRate, setPressure}) => {
         <div>
             <form className='signUpForm'>
             <div className='signUpFormUser form-group'>
-                <label>Temperature</label>
+                <label>Temperature(K)</label>
                 <input className='form-control' type='text' placeholder='Enter Temperature' onChange={e => setDetails({...details, temperature: e.target.value})} value={details.temperature}></input>
             </div>
             <div className='signUpPass form-group'>
-                <label>Flow Rate</label>
+                <label>Flow Rate(m<sup>3</sup>/s)</label>
                 <input className='form-control' type='text' placeholder='Enter Flow Rate' onChange={e => setDetails({...details, flowRate: e.target.value})} value={details.flowRate}></input>
             </div>
             <div className='signUpConfirm form-group'>
-                <label>Pressure</label>
+                <label>Pressure(Pa)</label>
                 <input className='form-control' type='text' placeholder='Enter Pressure' onChange={e => setDetails({...details, pressure: e.target.value})} value={details.pressure}></input>
             </div>
-            <div className='buttonContainerTwo'>
+            <div className='buttonContainerTwo buttonStraightener'>
                 <button type="submit" className="button-75 buttonsSign2" role="button" onClick={submitHandler}><span class="text">Submit</span></button>
             </div>
             <div>{reactionError}</div>

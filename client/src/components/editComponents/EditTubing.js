@@ -25,11 +25,11 @@ const EditTubing = ({conditionsSetTube, setConditionsSetTube, tubeLength, setTub
         <div>
             <form className='signUpForm'>
                 <div className='signUpFormUser form-group'>
-                    <label>Tube Length</label>
+                    <label>Tube Length(mm)</label>
                     <input className='form-control' type='text' placeholder='Enter Tube Length' onChange={e => setDetails({...details, tubeLength: e.target.value})} value={details.tubeLength}></input>
                 </div>
                 <div className='signUpPass form-group'>
-                    <label>Add Tube Diameter</label>
+                    <label>Add Tube Diameter(mm)</label>
                     <input className='form-control' type='text' placeholder='Enter Tube Diameter' onChange={e => setDetails({...details, tubeDiameter: e.target.value})} value={details.tubeDiameter}></input>
                 </div>
                 <div className='signUpFormUser form-group'>
@@ -41,7 +41,7 @@ const EditTubing = ({conditionsSetTube, setConditionsSetTube, tubeLength, setTub
                     <input className='form-control' type='text' placeholder='Enter Material' onChange={e => setDetails({...details, material: e.target.value})} value={details.material}></input>
                 </div>
                 <div className='buttonContainerTwo'>
-                    <button className="button-75 buttonsSign2" onClick={submitHandler}><span class="text">Submit</span></button>
+                    <button className="button-75 buttonsSign2 buttonStraightener2" onClick={submitHandler}><span class="text">Submit</span></button>
                 </div>   
             </form>
 

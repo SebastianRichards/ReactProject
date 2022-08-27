@@ -53,6 +53,25 @@ const View = () => {
     const [col2FlowRate, setCol2FlowRate] = useState("");
     const [col2FlowRateTime, setCol2FlowRateTime] = useState("");
 
+    const [col2SelectedMr, setCol2SelectedMr] = useState("");
+    const [col2Electrode1, setCol2Electrode1] = useState("");
+    const [col2Electrode2, setCol2Electrode2] = useState("");
+    const [col2RcT, setCol2RcT] = useState("");
+    const [col2RcP, setCol2RcP] = useState("");
+    const [col2RcF, setCol2RcF] = useState("");
+    const [col2Reagent1, setCol2Reagent1] = useState("");
+    const [col2Reagent2, setCol2Reagent2] = useState("");
+    const [col2ElectrodeDistance, setCol2ElectrodeDistance] = useState("");
+    const [col2ElectrodeArea, setCol2ElectrodeArea] = useState("");
+    const [col2NoTubes, setCol2NoTubes] = useState("");
+    
+
+
+
+
+
+
+
     //states will update the variable conditions that have been executed in col 1
 
     const [col1Temp, setCol1Temp] = useState("");
@@ -308,7 +327,18 @@ const View = () => {
         
     }
 
-    
+    const readOpcuaClient = () => {
+        Axios.get("http://localhost:3001/readOpcua").then((resp) => {
+            
+        })
+    };
+
+    const runOpcuaClient = () => {
+        Axios.get("http://localhost:3001/runOpcua").then((resp) => {
+            
+        })
+    };
+  
   
  
     
@@ -322,64 +352,31 @@ const View = () => {
         <div>
             <div className='viewContainer'>
                 <div className='viewCol1'>
-                    <div>Saved Microreactors:</div>
-                    {/* 
+                    <div className='savedMr'>Saved Microreactors:</div>
                     
+            
                     
-                    
-                    
-                    
-                    dsfjsdfs
-                    sdsd
-                    fsd
-                    fsdfds
-                    fsdfsd
-                    fsdf
-                    setDetailsFsd
-                    fs
-                    detailsFsdf
-                    sdf
-                    sd
-                    fs
-                    df
-                    sdfsdf
-                    sd
-                    fs
-                    df
-                    sd
-                    fsdfsdfds
-                    f
-                    sdfsd
-                    fsd
-                    fs
-                    df
-                    sd
-                    fsdf
-                    sdffs
-                    df
-                    sd
-                    fs
-                    df
-                    sdfs
-                    dfsdf
-                    sd
-                    fs
-                    fs
-                    
-                    
-                    
-  
-                    
-                    */}
-                    
-                    <button onClick={() => {console.log(tempArray)} }>Check data</button>
                     <div className='view3Buttons'>
                         {mrViewList.map((mr) => {
                             return (
-                                <div key={mr.name} onClick={() => {
+                                <div className="viewColumn" key={mr.name} onClick={() => {
                                     if (runButtonClicked === false) {
                                         setMicroReactorClicked(true);
                                         setMicroReactorClickedError("");
+                                        
+                                        //setting the bottom middle collumn on click
+                                        setCol2SelectedMr(mr.name);
+                                        setCol2Electrode1(mr.electrodeOne);
+                                        setCol2Electrode2(mr.electrodeTwo);
+                                        setCol2RcT(mr.temperature);
+                                        setCol2RcP(mr.pressure);
+                                        setCol2RcF(mr.flowRate);
+                                        setCol2Reagent1(mr.reagentOne);
+                                        setCol2Reagent2(mr.reagentTwo);
+                                        setCol2ElectrodeDistance(mr.electrodeDistance);
+                                        setCol2ElectrodeArea(mr.electrodeArea);
+                                        setCol2NoTubes(mr.tubing);
+
 
                                         
                                        
@@ -498,9 +495,9 @@ const View = () => {
                                     }
                                     
                                 }>
-                                    <div>Microreactor number: {mr.name}</div>
-                                    <button>View</button>
-                                    <button onClick={() => {deleteMicroreactor(mr._id)}}>Delete</button>
+                                    <div className='hoverMR viewCol10'>Microreactor number: {mr.name}</div>
+                                    <div className='viewCol20'><button className="button-77" onClick={runOpcuaClient}>View</button></div>
+                                    <div className='viewCol30'><button className="button-77" onClick={() => {deleteMicroreactor(mr._id)}}>Delete</button></div>
                                 </div>
                             )
                         })}
@@ -510,23 +507,23 @@ const View = () => {
                 <div className='viewCol2'>
                     <div className="viewContainer2">
                         <div className='view2Col1'>
-                            <div>
+                            <div className='savedMr'>
                                 Variable condition changes executed:
                             </div>
                             <div>
-                                Temperature: {col1Temp}
+                                Temperature(K): {col1Temp}
                             </div>
                             <div>
                                 Time: {col1TempTime}
                             </div>
                             <div>
-                                Pressure: {col1Pressure}
+                                Pressure(Pa): {col1Pressure}
                             </div>
                             <div>
                                 Time: {col1PressureTime}
                             </div>
                             <div>
-                                FlowRate: {col1FlowRate}
+                                FlowRate(m<sup>3</sup>/s): {col1FlowRate}
                             </div>
                             <div>
                                 Time: {col1FlowRateTime}
@@ -534,32 +531,48 @@ const View = () => {
 
                         </div>
                         <div className='view2Col2'>
-                            Time elapsed: {timerht}{timerh}h:{timermt}{timerm}m:{timerst}{timers}s
-                            {buttonStateRun && <button onClick={startTimer}>Run</button>}
-                                    {buttonStateStop && <button onClick={stopTimer}>Stop</button>}
+                            <div className="viewMid1 savedMr">Time elapsed: </div>
+                            <div className="viewMid2">{timerht}{timerh}h:{timermt}{timerm}m:{timerst}{timers}s</div>
+                            <div className="viewMid3">Microreactor selected: {col2SelectedMr}</div>
+                            <div className="viewMid4">Electrode 1: {col2Electrode1}</div>
+                            <div className="viewMid5">Electrode2: {col2Electrode2}</div>
+                            <div className="viewMid6">Temperature(K): {col2RcT}</div>
+                            <div className="viewMid7">Flow Rate(m<sup>3</sup>/s): {col2RcF}</div>
+                            <div className="viewMid8">Pressure(Pa): {col2RcP}</div>
+                            <div className="viewMid9">Reagent 1: {col2Reagent1}</div>
+                            <div className="viewMid10">Reagent 2: {col2Reagent2}</div>
+                            <div className="viewMid11">Electrode Distance(mm): {col2ElectrodeDistance}</div>
+                            <div className="viewMid12">Electrode Area(mm<sup>2</sup>): {col2ElectrodeArea}</div>
+                            <div className="viewMid13">Tubes: {col2NoTubes}</div>
+                            <div className="viewMid14">
+
+
+                            {buttonStateRun && <button onClick={startTimer} className="button-75 runButtonAdjust">Run</button>}
+                                    {buttonStateStop && <button onClick={stopTimer} className="button-75 runButtonAdjust">Stop</button>}
                             
-                            {microReactorClickedError}
-                            {runButtonClickedError}
+                            <div className='savedMr'>{microReactorClickedError}</div>
+                            <div className='savedMr'>{runButtonClickedError}</div>
+                            </div>
 
                         </div>
                         <div className='view2Col3'>
-                            <div>
+                            <div className='savedMr'>
                                 Variable Conditions qued:
                             </div>
                             <div>
-                                Temperature: {col2Temp}
+                                Temperature(K): {col2Temp}
                             </div>
                             <div>
                                 Time: {col2TempTime}
                             </div>
                             <div>
-                                Pressure: {col2Pressure}
+                                Pressure(Pa): {col2Pressure}
                             </div>
                             <div>
                                 Time: {col2PressureTime}
                             </div>
                             <div>
-                                FlowRate: {col2FlowRate}
+                                FlowRate(m<sup>3</sup>/s): {col2FlowRate}
                             </div>
                             <div>
                                 Time: {col2FlowRateTime}

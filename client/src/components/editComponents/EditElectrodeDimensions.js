@@ -29,14 +29,14 @@ const EditElectrodeDimensions = ({setElectrodeDistance, setElectrodeArea}) => {
         <div>
             <form className='signUpForm'>
                 <div className='signUpFormUser form-group'>
-                    <label>Electrode Distance</label>
+                    <label>Electrode Distance(mm)</label>
                     <input className='form-control' type='text' placeholder='Enter Electrode Distance' onChange={e => setDetails({...details, electrodeDistance: e.target.value})} value={details.electrodeDistance}></input>
                 </div>
                 <div className='signUpPass form-group'>
-                    <label>Electrode Area</label>
+                    <label>Electrode Area(mm<sup>2</sup>)</label>
                     <input className='form-control' type='text' placeholder='Enter Electrode Area' onChange={e => setDetails({...details, electrodeArea: e.target.value})} value={details.electrodeArea}></input>
                 </div>
-                <div className='buttonContainerTwo'>
+                <div className='buttonContainerTwo buttonStraightener'>
                     <button type="submit" onClick={submitHandler} className="button-75 buttonsSign2" role="button"><span class="text">Submit</span></button>
                 </div>
                 <div>{electrodeDError}</div>  

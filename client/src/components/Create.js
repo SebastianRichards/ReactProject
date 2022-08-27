@@ -21,10 +21,12 @@ const Create = () => {
 
     
 
+    
+
     //button toggle states
 
-    const [showEditElectrodeOne, setShowEditElectrodeOne] = useState(false);
-    const [showEditElectrodeTwo, setShowEditElectrodeTwo] = useState(false);
+    const [showEditElectrodeOne, setShowEditElectrodeOne] = useState(true);
+    const [showEditElectrodeTwo, setShowEditElectrodeTwo] = useState(true);
     const [showEditReactionConditions, setShowEditReactionConditions] = useState(false);
     const [showEditReagentOne, setShowEditReagentOne] = useState(false);
     const [showEditReagentTwo, setShowEditReagentTwo] = useState(false);
@@ -392,11 +394,14 @@ const Create = () => {
                 vcPressureTime: finalStringVcPressureTime,
                 vcFlowRate: finalStringVcFlowRate,
                 vcFlowRateTime: finalStringVcFlowRateTime,
+                //length, diameter, loops, material for tubing
+                tubing: [`${tubeLength}, ${tubeDiameter}, ${loops}, ${material}`]
                 
 
 
             }).then((response) => {
                 console.log(response);
+                console.log(finalStringVcFlowRate + "woowowowowo");
                
             })};
             

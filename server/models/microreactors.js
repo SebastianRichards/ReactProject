@@ -71,11 +71,11 @@ const MicroreactorSchema = new mongoose.Schema({
         String
     ],
 
-    tubing: [{
-        length: String,
-        diameter: String,
-        loops: String,
-        material: String}]
+    tubing: [
+        String
+    ],
+
+    run: false
 
 });
 

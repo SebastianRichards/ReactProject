@@ -82,7 +82,7 @@ const submitHandlerF = e => {
         <div>
             <form className='signUpForm'>
                 <div className='signUpFormUser form-group'>
-                    <label>Temperature</label>
+                    <label>Temperature(K)</label>
                     <input className='form-control' type='text' placeholder='Enter Temperature' onChange={e => setDetailsT({...detailsT, temperatureV: e.target.value})} value={detailsT.temperatureV}></input>
                 </div>
                 <div className='hoursInputContainer'>
@@ -105,7 +105,7 @@ const submitHandlerF = e => {
             </form>
             <form className='signUpForm'>
                 <div className='signUpFormUser form-group'>
-                    <label>Pressure</label>
+                    <label>Pressure(Pa)</label>
                     <input className='form-control' type='text' placeholder='Enter Pressure' onChange={e => setDetailsP({...detailsP, pressureV: e.target.value})} value={detailsP.pressureV}></input>
                 </div>
                 <div className='hoursInputContainer'>
@@ -128,7 +128,7 @@ const submitHandlerF = e => {
             </form>
             <form className='signUpForm'>
                 <div className='signUpFormUser form-group'>
-                    <label>Flow Rate</label>
+                    <label>Flow Rate(m<sup>3</sup>/s)</label>
                     <input className='form-control' type='text' placeholder='Enter Flow Rate' onChange={e => setDetailsF({...detailsF, flowRateV: e.target.value})} value={detailsF.flowRateV}></input>
                 </div>
                 <div className='hoursInputContainer'>

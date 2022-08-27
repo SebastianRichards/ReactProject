@@ -114,7 +114,7 @@ const EditReagentOne = ({reagent1, setReagent1}) => {
                 <li className={changeStyle9 ? 'electrodeBoxItem selected' : 'electrodeBoxItem'} onClick={changeLiStyle9} id='9'>Lithium</li>
                 <li className={changeStyle10 ? 'electrodeBoxItem selected' : 'electrodeBoxItem'} onClick={changeLiStyle10} id='10'>Nickel</li>
             </ul>
-            <button className='button-75' onClick={submitHandler}>Submit Reagent One</button>     
+            <div className='electrode1submit'><button className='button-75' onClick={submitHandler}>Submit Reagent One</button></div>   
         </div>
     )
 }
