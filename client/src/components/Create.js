@@ -359,6 +359,8 @@ const Create = () => {
 
         }
 
+        
+
 
         useEffect(() => {
             Axios.get("http://localhost:3001/getMicroreactors").then((response) => {
@@ -401,8 +403,6 @@ const Create = () => {
 
             }).then((response) => {
                 console.log(response);
-                console.log(finalStringVcFlowRate + "woowowowowo");
-               
             })};
             
     
@@ -430,6 +430,7 @@ const Create = () => {
         if (mrcounterverify === 9) {
 
             postMicroreactor();
+            
 
             return navigate('/view');
         }
